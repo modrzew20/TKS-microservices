@@ -1,0 +1,99 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:tns="http://example.com/applicationsoap/soapmodel/reservationmodel"
+            targetNamespace="http://example.com/applicationsoap/soapmodel/reservationmodel"
+            elementFormDefault="qualified">
+
+    <xsd:complexType name="ReservationSoap">
+        <xsd:sequence>
+            <xsd:element name="uuid" type="xsd:string"/>
+            <xsd:element name="laneUuid" type="xsd:string"/>
+            <xsd:element name="userUuid" type="xsd:string"/>
+            <xsd:element name="startReservation" type="xsd:string"/>
+            <xsd:element name="endReservation" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+
+
+    <xsd:element name="ReadAllReservationRequest">
+        <xsd:complexType>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="ReadAllReservationResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="ReservationSoap" type="tns:ReservationSoap" minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="ReadOneReservationRequest">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="uuid" type="xsd:string"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="ReadOneReservationResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="ReservationSoap" type="tns:ReservationSoap"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="CreateReservationRequest">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="userUuid" type="xsd:string"/>
+                <xsd:element name="laneUuid" type="xsd:string"/>
+                <xsd:element name="startReservation" type="xsd:string"/>
+                <xsd:element name="endReservation" type="xsd:string"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="CreateReservationResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="ReservationSoap" type="tns:ReservationSoap"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="EndReservationRequest">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="uuid" type="xsd:string"/>
+                <xsd:element name="endReservation" type="xsd:string"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="EndReservationResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="ReservationSoap" type="tns:ReservationSoap"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="DeleteReservationRequest">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="uuid" type="xsd:string"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="DeleteReservationResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="ReservationSoap" type="tns:ReservationSoap"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+</xsd:schema>

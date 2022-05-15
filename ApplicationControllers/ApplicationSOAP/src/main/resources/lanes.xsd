@@ -1,0 +1,99 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:tns="http://example.com/applicationsoap/soapmodel/lanemodel"
+            targetNamespace="http://example.com/applicationsoap/soapmodel/lanemodel"
+            elementFormDefault="qualified">
+
+    <xsd:complexType name="LaneSoap">
+        <xsd:sequence>
+            <xsd:element name="uuid" type="xsd:string"/>
+            <xsd:element name="type" type="tns:LANE_TYPE_Soap"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:simpleType name="LANE_TYPE_Soap">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="normal"/>
+            <xsd:enumeration value="premium"/>
+            <xsd:enumeration value="vip"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:element name="ReadAllLaneRequest">
+        <xsd:complexType>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="ReadAllLaneResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="LaneSoap" type="tns:LaneSoap" minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="ReadOneLaneRequest">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="uuid" type="xsd:string"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="ReadOneLaneResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="LaneSoap" type="tns:LaneSoap"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="CreateLaneRequest">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="lane_type" type="tns:LANE_TYPE_Soap"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="CreateLaneResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="LaneSoap" type="tns:LaneSoap"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="UpdateLaneRequest">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="uuid" type="xsd:string"/>
+                <xsd:element name="lane_type" type="tns:LANE_TYPE_Soap"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="UpdateLaneResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="LaneSoap" type="tns:LaneSoap"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="DeleteLaneRequest">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="uuid" type="xsd:string"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="DeleteLaneResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="LaneSoap" type="tns:LaneSoap"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+</xsd:schema>

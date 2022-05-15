@@ -1,0 +1,11 @@
+/.idea/
+/ApplicationREST/target
+/ApplicationREST/.mvn
+/ApplicationREST/.gitignore
+
+target/
+
+*.iml
+/ApplicationControllers/ApplicationSOAP/src/main/java/META-INF/JAXB/*
+/ApplicationControllers/ApplicationSOAP/.mvn/
+
