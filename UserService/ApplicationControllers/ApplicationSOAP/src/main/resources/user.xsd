@@ -1,0 +1,135 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:tns="http://example.com/applicationsoap/soapmodel/usermodel"
+            targetNamespace="http://example.com/applicationsoap/soapmodel/usermodel"
+            elementFormDefault="qualified">
+
+    <xsd:complexType name="UserSoap">
+        <xsd:sequence>
+            <xsd:element name="uuid" type="xsd:string"/>
+            <xsd:element name="login" type="xsd:string"/>
+            <xsd:element name="password" type="xsd:string"/>
+            <xsd:element name="isActive" type="xsd:boolean"/>
+            <xsd:element name="accessLevel" type="tns:accessLevel_Type"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:simpleType name="accessLevel_Type">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Administrator"/>
+            <xsd:enumeration value="ResourceAdministrator"/>
+            <xsd:enumeration value="Client"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:element name="ReadAllUserRequest">
+        <xsd:complexType>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="ReadAllUserResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="UserSoap" type="tns:UserSoap" minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="ReadOneUserRequest">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="uuid" type="xsd:string"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="ReadOneUserResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="UserSoap" type="tns:UserSoap"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="CreateUserRequest">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="accesslevel" type="tns:accessLevel_Type"/>
+                <xsd:element name="login" type="xsd:string"/>
+                <xsd:element name="password" type="xsd:string"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="CreateUserResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="UserSoap" type="tns:UserSoap"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="UpdateUserRequest">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="uuid" type="xsd:string"/>
+                <xsd:element name="login" type="xsd:string"/>
+                <xsd:element name="password" type="xsd:string"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="UpdateUserResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="UserSoap" type="tns:UserSoap"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="ReadManyUserRequest">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="login" type="xsd:string"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="ReadManyUserResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="UserSoap" type="tns:UserSoap" minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="deactivateUserRequest">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="uuid" type="xsd:string"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="deactivateUserResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="UserSoap" type="tns:UserSoap"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="activateUserRequest">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="uuid" type="xsd:string"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="activateUserResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="UserSoap" type="tns:UserSoap"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>

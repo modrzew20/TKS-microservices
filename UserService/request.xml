@@ -1,0 +1,9 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:gs="http://example.com/applicationsoap/soapmodel/lanemodel">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <gs:ReadOneLaneRequest>
+            <gs:uuid>c749a6ed-1034-4029-81f3-7f3b9c26e582</gs:uuid>
+        </gs:ReadOneLaneRequest>
+    </soapenv:Body>
+</soapenv:Envelope>
