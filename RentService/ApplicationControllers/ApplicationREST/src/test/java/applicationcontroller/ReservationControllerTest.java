@@ -80,7 +80,6 @@ public class ReservationControllerTest implements SpringTest {
 
     }
 
-    // TODO delete doesn't work, check function becouse it return 500 not 400 like should
     @Test
     public void deleteReserv() {
         ContentType contentType = ContentType.URLENC;
@@ -182,7 +181,6 @@ public class ReservationControllerTest implements SpringTest {
 
     }
 
-    // TODO adding reservation with wrong dates return 500 not 400 like should
     @Test
     public void addReservationTestAllWrongPossibilities() {
 

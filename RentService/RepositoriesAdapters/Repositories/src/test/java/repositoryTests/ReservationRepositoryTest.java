@@ -3,7 +3,10 @@ package repositoryTests;
 import exceptions.CannotDeleteItem;
 import exceptions.ItemNotFound;
 import exceptions.LoginInUseException;
-import modelEnt.*;
+import modelEnt.LANE_TYPE_Ent;
+import modelEnt.LaneEnt;
+import modelEnt.ReservationEnt;
+import modelEnt.UserEnt;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import repository.LaneRepository;
@@ -58,10 +61,10 @@ class ReservationRepositoryTest {
 
 
         try {
-            user1 = new ClientEnt(UUID.randomUUID(), "userA", "password", true);
+            user1 = new UserEnt(UUID.randomUUID(), "userA", true);
             userRepository.create(user1);
 
-            user2 = new ClientEnt(UUID.randomUUID(), "userB", "password", true);
+            user2 = new UserEnt(UUID.randomUUID(), "userB", true);
             userRepository.create(user2);
         } catch (LoginInUseException e) {
             e.printStackTrace();

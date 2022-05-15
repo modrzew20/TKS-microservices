@@ -3,9 +3,6 @@ package repository;
 import exceptions.CannotDeleteItem;
 import exceptions.ItemNotFound;
 import exceptions.LoginInUseException;
-import modelEnt.AdministratorEnt;
-import modelEnt.ClientEnt;
-import modelEnt.ResourceAdministratorEnt;
 import modelEnt.UserEnt;
 import org.springframework.stereotype.Repository;
 
@@ -20,9 +17,9 @@ public class UserRepository implements RepositoryInterface<UserEnt> {
 
     public UserRepository() throws LoginInUseException {
         this.userList = new ArrayList<>();
-        this.create(new AdministratorEnt(UUID.fromString("484e945c-9174-417a-b4e4-7736254ade4f"), "miciukaciu", "czesc", true));
-        this.create(new ClientEnt(UUID.fromString("b2998c63-4621-443e-bf59-1e39e1f80170"), "pypensz", "czesc", true));
-        this.create(new ResourceAdministratorEnt(UUID.fromString("6286cfa3-2993-44d3-aff4-a26ca9b2b75b"), "fici", "czesc", true));
+        this.create(new UserEnt(UUID.fromString("484e945c-9174-417a-b4e4-7736254ade4f"), "miciukaciu", true));
+        this.create(new UserEnt(UUID.fromString("b2998c63-4621-443e-bf59-1e39e1f80170"), "pypensz", true));
+        this.create(new UserEnt(UUID.fromString("6286cfa3-2993-44d3-aff4-a26ca9b2b75b"), "fici", true));
     }
 
     private boolean loginExists(String login) {
@@ -79,7 +76,6 @@ public class UserRepository implements RepositoryInterface<UserEnt> {
                 if (Objects.equals(object.getLogin(), "")) throw new LoginInUseException("Login cannot be empty");
                 user.setLogin(object.getLogin());
             }
-            if (object.getPassword() != null) user.setPassword(object.getPassword());
         }
         return user;
     }

@@ -5,7 +5,6 @@ import exceptions.ItemNotFound;
 import java.util.List;
 import java.util.UUID;
 
-//TODO split into smaller interfaces
 public interface LaneServicePort<T> {
 
     List<T> readAllLane();

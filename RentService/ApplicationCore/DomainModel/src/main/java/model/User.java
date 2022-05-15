@@ -9,6 +9,11 @@ public abstract class User {
     private String password;
     private Boolean isActive;
 
+    public User(UUID uuid, String login) {
+        this.uuid = uuid;
+        this.login = login;
+    }
+
     public User(UUID uuid, String login, String password, Boolean isActive) {
         this.uuid = uuid;
         this.login = login;
