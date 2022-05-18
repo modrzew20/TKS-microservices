@@ -9,3 +9,24 @@ target/
 /ApplicationControllers/ApplicationSOAP/src/main/java/META-INF/JAXB/*
 /ApplicationControllers/ApplicationSOAP/.mvn/
 
+/RentService/ApplicationDocker/.mvn/
+/UserService/ApplicationDocker/mvnw
+/RentService/ApplicationDocker/mvnw
+/RentService/ApplicationDocker/mvnw.cmd
+/UserService/ApplicationDocker/mvnw.cmd
+/UserService/ApplicationDocker/.mvn/
+
+/RentService/.idea/
+/UserService/.idea/
+RentService/.idea/compiler.xml
+RentService/.idea/encodings.xml
+RentService/.idea/misc.xml
+RentService/.idea/compiler.xml
+RentService/.idea/encodings.xml
+RentService/.idea/misc.xml
+RentService/.idea/vcs.xml
+RentService/.idea/misc.xml
+RentService/.idea/jpa-buddy.xml
+RentService/.idea/jarRepositories.xml
+RentService/.idea/encodings.xml
+RentService/.idea/compiler.xml
