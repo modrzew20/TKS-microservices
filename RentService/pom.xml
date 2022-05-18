@@ -30,6 +30,7 @@
         <module>ApplicationServicePorts</module>
         <module>ApplicationControllers</module>
         <module>Exceptions</module>
+        <module>ApplicationDocker</module>
     </modules>
 
     <dependencyManagement>
