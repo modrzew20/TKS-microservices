@@ -63,7 +63,7 @@ public class ReservationRepository implements RepositoryInterface<ReservationEnt
         List<ReservationEnt> list = new ArrayList<>();
         LocalDateTime time = LocalDateTime.now();
         for (ReservationEnt reservation : reservationList) {
-            if (reservation.getClient().getUuid().equals(clientsUUID)
+            if (reservation.getClient().equals(clientsUUID)
                     && reservation.getEndReservation().isBefore(time)) list.add(reservation);
         }
         return list;
@@ -73,7 +73,7 @@ public class ReservationRepository implements RepositoryInterface<ReservationEnt
         List<ReservationEnt> list = new ArrayList<>();
         LocalDateTime time = LocalDateTime.now();
         for (ReservationEnt reservation : reservationList) {
-            if (reservation.getClient().getUuid().equals(clientsUUID)
+            if (reservation.getClient().equals(clientsUUID)
                     && (reservation.getEndReservation().isAfter(time)
                     || reservation.getEndReservation() == null)) list.add(reservation);
         }

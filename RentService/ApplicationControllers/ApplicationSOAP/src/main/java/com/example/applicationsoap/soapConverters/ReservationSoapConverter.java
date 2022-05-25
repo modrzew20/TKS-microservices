@@ -9,7 +9,7 @@ public class ReservationSoapConverter {
         if (reservation == null ) return null;
         ReservationSoap reservationSoap = new ReservationSoap();
         reservationSoap.setUuid(reservation.getUuid().toString());
-        reservationSoap.setUserUuid(reservation.getUser().getUuid().toString());
+        reservationSoap.setUserUuid(reservation.getUser().toString());
         reservationSoap.setLaneUuid(reservation.getLane().getUuid().toString());
         reservationSoap.setStartReservation(reservation.getStartReservation().toString());
         reservationSoap.setEndReservation(reservation.getEndReservation().toString());
