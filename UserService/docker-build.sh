@@ -1,7 +1,7 @@
 #!/bin/bash
-mvn package
+mvn package -DskipTests
 cd ApplicationDocker || exit
 mkdir target/dependency
 cd target/dependency
-jar -xf ../ApplicationDocker-0.0.1-SNAPSHOT.war
-cd ../.. && docker build -t TKS-microservices/RentService .
+jar -xf ../ApplicationDocker-1.0-SNAPSHOT.jar
+cd ../.. && docker build -t TKS-microservices/UserService .
