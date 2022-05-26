@@ -7,10 +7,10 @@ public class ReservationView {
 
     private UUID uuid;
     private LaneView lane;
-    private UserView user;
+    private UUID user;
     private LocalDateTime startReservation, endReservation;
 
-    public ReservationView(UUID uuid, LaneView lane, UserView client, LocalDateTime startReservation, LocalDateTime endReservation) {
+    public ReservationView(UUID uuid, LaneView lane, UUID client, LocalDateTime startReservation, LocalDateTime endReservation) {
         this.uuid = uuid;
         this.lane = lane;
         this.user = client;
@@ -26,11 +26,11 @@ public class ReservationView {
         this.lane = lane;
     }
 
-    public UserView getUser() {
+    public UUID getUser() {
         return user;
     }
 
-    public void setUser(UserView user) {
+    public void setUser(UUID user) {
         this.user = user;
     }
 

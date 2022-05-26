@@ -4,6 +4,7 @@ import exceptions.ItemNotFound;
 import modelEnt.LANE_TYPE_Ent;
 import modelEnt.LaneEnt;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import repository.LaneRepository;
 import java.util.UUID;

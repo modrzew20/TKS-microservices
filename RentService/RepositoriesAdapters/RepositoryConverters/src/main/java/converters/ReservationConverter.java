@@ -7,15 +7,13 @@ import java.util.List;
 
 import static converters.LaneConverter.convertFromLane;
 import static converters.LaneConverter.convertToLane;
-import static converters.UserConverter.convertFromUser;
-import static converters.UserConverter.convertToUser;
 
 public class ReservationConverter {
 
     public static Reservation convertToReservation(ReservationEnt reservationEnt) {
         if (reservationEnt == null) return null;
         return new Reservation(reservationEnt.getUuid(), convertToLane(reservationEnt.getLane()),
-                convertToUser(reservationEnt.getClient()),
+                reservationEnt.getClient(),
                 reservationEnt.getStartReservation(), reservationEnt.getEndReservation());
     }
 
@@ -27,7 +25,7 @@ public class ReservationConverter {
     public static ReservationEnt convertFromReservation(Reservation reservation) {
         if (reservation == null) return null;
         return new ReservationEnt(reservation.getUuid(), convertFromLane(reservation.getLane()),
-                convertFromUser(reservation.getUser()),
+                reservation.getUser(),
                 reservation.getStartReservation(), reservation.getEndReservation());
     }
 

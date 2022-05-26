@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
         "applicationcontroller.api",
         "applicationcontroller.adapters",
         "applicationcontroller.converters",
-        "applicationcontroller.modelRest.exceptionsView",
         "applicationcontroller.modelRest.modelView",
         "service",
         "repository",

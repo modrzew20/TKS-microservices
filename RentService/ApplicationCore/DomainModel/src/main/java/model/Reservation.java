@@ -7,10 +7,10 @@ public class Reservation {
 
     private UUID uuid;
     private Lane lane;
-    private User user;
+    private UUID user;
     private LocalDateTime startReservation, endReservation;
 
-    public Reservation(UUID uuid, Lane lane, User client, LocalDateTime startReservation, LocalDateTime endReservation) {
+    public Reservation(UUID uuid, Lane lane, UUID client, LocalDateTime startReservation, LocalDateTime endReservation) {
         this.uuid = uuid;
         this.lane = lane;
         this.user = client;
@@ -26,11 +26,11 @@ public class Reservation {
         this.lane = lane;
     }
 
-    public User getUser() {
+    public UUID getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UUID user) {
         this.user = user;
     }
 
