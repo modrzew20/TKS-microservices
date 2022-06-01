@@ -38,43 +38,17 @@ public class UserService {
         }
     }
 
-    public User addUser(AccessLevel accessLevel, String login, String password) throws LoginInUseException {
+    public User addUser(String login) throws LoginInUseException {
         synchronized (lock) {
-            switch (accessLevel) {
-                case Administrator -> {
-                    return createUserPort.create(new Administrator(UUID.randomUUID(), login, password, true));
-                }
-                case ResourceAdministrator -> {
-                    return createUserPort.create(new ResourceAdministrator(UUID.randomUUID(), login, password, true));
-                }
-                case Client -> {
-                    return createUserPort.create(new Client(UUID.randomUUID(), login, password, true));
-                }
-                default -> {
-                    return null;
-                }
-            }
+            return createUserPort.create(new User(UUID.randomUUID(), login));
         }
     }
 
-    public User updateUser(UUID uuid, String login, String password) throws
+    public User updateUser(UUID uuid, String login) throws
             LoginInUseException, ItemNotFound {
         synchronized (lock) {
             User user = readUserPort.readById(uuid);
-            switch (user.getAccessLevel()) {
-                case Administrator -> {
-                    return updateUserPort.update(new Administrator(uuid, login, password, user.getActive()));
-                }
-                case ResourceAdministrator -> {
-                    return updateUserPort.update(new ResourceAdministrator(uuid, login, password, user.getActive()));
-                }
-                case Client -> {
-                    return updateUserPort.update(new Client(uuid, login, password, user.getActive()));
-                }
-                default -> {
-                    return null;
-                }
-            }
+            return updateUserPort.update(new User(user.getUuid(), login));
         }
     }
 
@@ -90,19 +64,4 @@ public class UserService {
             return readUserPort.readManyByLogin(login);
         }
     }
-
-
-    public User deactivateUser(UUID uuid) throws ItemNotFound {
-        synchronized (lock) {
-            return updateUserPort.deactivate(uuid);
-        }
-    }
-
-    public User activateUser(UUID uuid) throws ItemNotFound {
-        synchronized (lock) {
-            return updateUserPort.activate(uuid);
-        }
-    }
-
-
 }

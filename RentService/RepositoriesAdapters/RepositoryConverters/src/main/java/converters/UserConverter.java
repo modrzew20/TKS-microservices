@@ -9,13 +9,7 @@ import java.util.List;
 public class UserConverter {
 
     public static User convertToUser(UserEnt userEnt) {
-        // anonymous class returned
-        return new User(userEnt.getUuid(), userEnt.getLogin()) {
-            @Override
-            public AccessLevel getAccessLevel() {
-                return null;
-            }
-        };
+        return new User(userEnt.getUuid(), userEnt.getLogin());
     }
 
     public static List<User> convertToListUser(List<UserEnt> userEntList) {
@@ -28,7 +22,7 @@ public class UserConverter {
 
 
     public static UserEnt convertFromUser(User user) {
-        return new UserEnt(user.getUuid(), user.getLogin(), user.getActive());
+        return new UserEnt(user.getUuid(), user.getLogin());
     }
 
     public static List<UserEnt> convertFromListUser(List<User> userList) {

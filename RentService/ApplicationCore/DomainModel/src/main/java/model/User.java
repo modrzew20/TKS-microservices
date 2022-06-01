@@ -1,57 +1,33 @@
 package model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.Objects;
 import java.util.UUID;
 
-public abstract class User {
+@AllArgsConstructor
+public class User {
 
+    @Getter @Setter
     private UUID uuid;
+
+    @Getter @Setter
     private String login;
-    private String password;
-    private Boolean isActive;
 
-    public User(UUID uuid, String login) {
-        this.uuid = uuid;
-        this.login = login;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return Objects.equals(getUuid(), user.getUuid()) &&
+                Objects.equals(getLogin(), user.getLogin());
     }
 
-    public User(UUID uuid, String login, String password, Boolean isActive) {
-        this.uuid = uuid;
-        this.login = login;
-        this.password = password;
-        this.isActive = isActive;
+    @Override
+    public int hashCode() {
+        return Objects.hash(getUuid(), getLogin());
     }
 
-    public UUID getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Boolean getActive() {
-        return isActive;
-    }
-
-    public void setActive(Boolean active) {
-        isActive = active;
-    }
-
-    public abstract AccessLevel getAccessLevel();
 }

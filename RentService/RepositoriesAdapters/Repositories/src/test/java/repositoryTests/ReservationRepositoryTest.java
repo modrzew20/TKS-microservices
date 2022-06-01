@@ -61,10 +61,10 @@ class ReservationRepositoryTest {
 
 
         try {
-            user1 = new UserEnt(UUID.randomUUID(), "userA", true);
+            user1 = new UserEnt(UUID.randomUUID(), "userA");
             userRepository.create(user1);
 
-            user2 = new UserEnt(UUID.randomUUID(), "userB", true);
+            user2 = new UserEnt(UUID.randomUUID(), "userB");
             userRepository.create(user2);
         } catch (LoginInUseException e) {
             e.printStackTrace();

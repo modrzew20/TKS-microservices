@@ -1,41 +1,17 @@
 package modelEnt;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.UUID;
 
+@AllArgsConstructor
 public class UserEnt {
 
+    @Getter
+    @Setter
     private UUID uuid;
+    @Getter @Setter
     private String login;
-    private Boolean isActive;
-
-    public UserEnt(UUID uuid, String login, Boolean isActive) {
-        this.uuid = uuid;
-        this.login = login;
-        this.isActive = isActive;
-    }
-
-    public UUID getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public Boolean getActive() {
-        return isActive;
-    }
-
-    public void setActive(Boolean active) {
-        isActive = active;
-    }
-
 }

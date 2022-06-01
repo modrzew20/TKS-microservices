@@ -7,19 +7,8 @@
         <xsd:sequence>
             <xsd:element name="uuid" type="xsd:string"/>
             <xsd:element name="login" type="xsd:string"/>
-            <xsd:element name="password" type="xsd:string"/>
-            <xsd:element name="isActive" type="xsd:boolean"/>
-            <xsd:element name="accessLevel" type="tns:accessLevel_Type"/>
         </xsd:sequence>
     </xsd:complexType>
-
-    <xsd:simpleType name="accessLevel_Type">
-        <xsd:restriction base="xsd:string">
-            <xsd:enumeration value="Administrator"/>
-            <xsd:enumeration value="ResourceAdministrator"/>
-            <xsd:enumeration value="Client"/>
-        </xsd:restriction>
-    </xsd:simpleType>
 
     <xsd:element name="ReadAllUserRequest">
         <xsd:complexType>
@@ -53,9 +42,7 @@
     <xsd:element name="CreateUserRequest">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element name="accesslevel" type="tns:accessLevel_Type"/>
                 <xsd:element name="login" type="xsd:string"/>
-                <xsd:element name="password" type="xsd:string"/>
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>
@@ -73,7 +60,6 @@
             <xsd:sequence>
                 <xsd:element name="uuid" type="xsd:string"/>
                 <xsd:element name="login" type="xsd:string"/>
-                <xsd:element name="password" type="xsd:string"/>
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>
@@ -98,37 +84,6 @@
         <xsd:complexType>
             <xsd:sequence>
                 <xsd:element name="UserSoap" type="tns:UserSoap" minOccurs="0" maxOccurs="unbounded"/>
-            </xsd:sequence>
-        </xsd:complexType>
-    </xsd:element>
-
-    <xsd:element name="deactivateUserRequest">
-        <xsd:complexType>
-            <xsd:sequence>
-                <xsd:element name="uuid" type="xsd:string"/>
-            </xsd:sequence>
-        </xsd:complexType>
-    </xsd:element>
-
-    <xsd:element name="deactivateUserResponse">
-        <xsd:complexType>
-            <xsd:sequence>
-                <xsd:element name="UserSoap" type="tns:UserSoap"/>
-            </xsd:sequence>
-        </xsd:complexType>
-    </xsd:element>
-    <xsd:element name="activateUserRequest">
-        <xsd:complexType>
-            <xsd:sequence>
-                <xsd:element name="uuid" type="xsd:string"/>
-            </xsd:sequence>
-        </xsd:complexType>
-    </xsd:element>
-
-    <xsd:element name="activateUserResponse">
-        <xsd:complexType>
-            <xsd:sequence>
-                <xsd:element name="UserSoap" type="tns:UserSoap"/>
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>

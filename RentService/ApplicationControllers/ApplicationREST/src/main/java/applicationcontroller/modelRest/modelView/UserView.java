@@ -1,52 +1,18 @@
 package applicationcontroller.modelRest.modelView;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.UUID;
 
-public abstract class UserView {
+@AllArgsConstructor
+public class UserView {
 
+    @Getter @Setter
     private UUID uuid;
+    @Getter @Setter
     private String login;
-    private String password;
-    private Boolean isActive;
 
-    public UserView(UUID uuid, String login, String password, Boolean isActive) {
-        this.uuid = uuid;
-        this.login = login;
-        this.password = password;
-        this.isActive = isActive;
-    }
 
-    public UUID getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Boolean getActive() {
-        return isActive;
-    }
-
-    public void setActive(Boolean active) {
-        isActive = active;
-    }
-
-    public abstract AccessLevelView getAccessLevel();
 }

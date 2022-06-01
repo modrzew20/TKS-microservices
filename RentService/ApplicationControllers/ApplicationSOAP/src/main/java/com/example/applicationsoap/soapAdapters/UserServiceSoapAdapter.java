@@ -5,7 +5,6 @@ import com.example.applicationsoap.soapConverters.UserSoapConverter;
 import com.example.applicationsoap.soapmodel.usermodel.UserSoap;
 import exceptions.ItemNotFound;
 import exceptions.LoginInUseException;
-import model.AccessLevel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import service.UserService;
@@ -25,13 +24,13 @@ public class UserServiceSoapAdapter implements UserServicePort<UserSoap> {
     }
 
     @Override
-    public UserSoap addUser(AccessLevel accessLevel, String login, String password) throws LoginInUseException {
-        return UserSoapConverter.convertFromUser(userService.addUser(accessLevel,login,password));
+    public UserSoap addUser(String login) throws LoginInUseException {
+        return UserSoapConverter.convertFromUser(userService.addUser(login));
     }
 
     @Override
-    public UserSoap updateUser(UUID uuid, String login, String password) throws LoginInUseException, ItemNotFound {
-        return UserSoapConverter.convertFromUser(userService.updateUser(uuid,login,password));
+    public UserSoap updateUser(UUID uuid, String login) throws LoginInUseException, ItemNotFound {
+        return UserSoapConverter.convertFromUser(userService.updateUser(uuid,login));
     }
 
     @Override
@@ -42,15 +41,5 @@ public class UserServiceSoapAdapter implements UserServicePort<UserSoap> {
     @Override
     public List<UserSoap> readManyUser(String login) {
         return userService.readManyUser(login).stream().map(UserSoapConverter::convertFromUser).toList();
-    }
-
-    @Override
-    public UserSoap deactivateUser(UUID uuid) throws ItemNotFound {
-        return UserSoapConverter.convertFromUser(userService.deactivateUser(uuid));
-    }
-
-    @Override
-    public UserSoap activateUser(UUID uuid) throws ItemNotFound {
-        return UserSoapConverter.convertFromUser(userService.activateUser(uuid));
     }
 }

@@ -68,7 +68,7 @@ public class LaneController {
     @DeleteMapping(value = "/delete/{uuid}", produces = MediaType.APPLICATION_JSON_VALUE)
     public LaneView deleteLane(@PathVariable("uuid") @NotBlank @Pattern(regexp = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid) {
         try {
-            return laneServiceAdapters.deleteLine(UUID.fromString(uuid));
+            return laneServiceAdapters.deleteLane(UUID.fromString(uuid));
         } catch (ItemNotFound e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }

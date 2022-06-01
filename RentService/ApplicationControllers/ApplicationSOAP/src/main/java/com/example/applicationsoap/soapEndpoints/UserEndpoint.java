@@ -48,7 +48,7 @@ public class UserEndpoint {
     @ResponsePayload
     public CreateUserResponse createUserResponse(@RequestPayload CreateUserRequest request) throws LoginInUseException {
         CreateUserResponse response = new CreateUserResponse();
-        response.setUserSoap(userServiceSoapAdapter.addUser(UserSoapConverter.convertToAccessLevel(request.getAccesslevel()),request.getLogin(),request.getPassword()));
+        response.setUserSoap(userServiceSoapAdapter.addUser(request.getLogin()));
         return response;
     }
 
@@ -56,24 +56,10 @@ public class UserEndpoint {
     @ResponsePayload
     public UpdateUserResponse updateUserResponse(@RequestPayload UpdateUserRequest request) throws LoginInUseException, ItemNotFound {
         UpdateUserResponse response = new UpdateUserResponse();
-        response.setUserSoap(userServiceSoapAdapter.updateUser(UUID.fromString(request.getUuid()), request.getLogin(), request.getPassword()));
+        response.setUserSoap(userServiceSoapAdapter.updateUser(UUID.fromString(request.getUuid()), request.getLogin()));
         return response;
     }
 
-    @PayloadRoot(namespace = URI, localPart = "DeactivateUserRequest")
-    @ResponsePayload
-    public DeactivateUserResponse deactivateUserResponse(@RequestPayload DeactivateUserRequest request) throws ItemNotFound {
-        DeactivateUserResponse response = new DeactivateUserResponse();
-        response.setUserSoap(userServiceSoapAdapter.deactivateUser(UUID.fromString(request.getUuid())));
-        return response;
-    }
 
-    @PayloadRoot(namespace = URI, localPart = "ActivateUserRequest")
-    @ResponsePayload
-    public ActivateUserResponse activateUserResponse(@RequestPayload ActivateUserRequest request) throws ItemNotFound {
-        ActivateUserResponse response = new ActivateUserResponse();
-        response.setUserSoap(userServiceSoapAdapter.activateUser(UUID.fromString(request.getUuid())));
-        return response;
-    }
 
 }

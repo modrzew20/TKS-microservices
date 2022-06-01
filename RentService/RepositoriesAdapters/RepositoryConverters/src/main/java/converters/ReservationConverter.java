@@ -15,7 +15,7 @@ public class ReservationConverter {
     public static Reservation convertToReservation(ReservationEnt reservationEnt) {
         if (reservationEnt == null) return null;
         return new Reservation(reservationEnt.getUuid(), convertToLane(reservationEnt.getLane()),
-                convertToUser(reservationEnt.getClient()),
+                convertToUser(reservationEnt.getUser()),
                 reservationEnt.getStartReservation(), reservationEnt.getEndReservation());
     }
 

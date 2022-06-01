@@ -36,14 +36,4 @@ public class UserPortInAdapter implements CreateUserPort, DeleteUserPort, Update
     public User update(User user) throws LoginInUseException, ItemNotFound {
         return convertToUser(userRepository.update(convertFromUser(user)));
     }
-
-    @Override
-    public User activate(UUID uuid) throws ItemNotFound {
-        return convertToUser(userRepository.activate(uuid));
-    }
-
-    @Override
-    public User deactivate(UUID uuid) throws ItemNotFound {
-        return convertToUser(userRepository.deactivate(uuid));
-    }
 }

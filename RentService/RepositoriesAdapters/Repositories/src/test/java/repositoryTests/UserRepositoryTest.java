@@ -24,20 +24,20 @@ public class UserRepositoryTest {
     @Test
     void createUserTest() throws LoginInUseException {
         int size = userRepository.readAll().size();
-        userRepository.create(new UserEnt(UUID.randomUUID(), "LOGINTEST", true));
+        userRepository.create(new UserEnt(UUID.randomUUID(), "LOGINTEST"));
         assertEquals(userRepository.readAll().size(), size + 1);
     }
 
     @Test
     void failedCreateUserTest() throws LoginInUseException {
-        userRepository.create(new UserEnt(UUID.randomUUID(), "LOGINTEST", true));
-        assertThrows(LoginInUseException.class, () -> userRepository.create(new UserEnt(UUID.randomUUID(), "LOGINTEST", true)));
-        assertThrows(LoginInUseException.class, () -> userRepository.create(new UserEnt(UUID.randomUUID(), "", true)));
+        userRepository.create(new UserEnt(UUID.randomUUID(), "LOGINTEST"));
+        assertThrows(LoginInUseException.class, () -> userRepository.create(new UserEnt(UUID.randomUUID(), "LOGINTEST")));
+        assertThrows(LoginInUseException.class, () -> userRepository.create(new UserEnt(UUID.randomUUID(), "")));
     }
 
     @Test
     void readByIdUserTest() throws LoginInUseException, ItemNotFound {
-        UserEnt userEnt = new UserEnt(UUID.randomUUID(), "LOGINTEST", true);
+        UserEnt userEnt = new UserEnt(UUID.randomUUID(), "LOGINTEST");
         userRepository.create(userEnt);
         UserEnt result = userRepository.readById(userEnt.getUuid());
         assertEquals(result.getUuid(), userEnt.getUuid());
@@ -51,10 +51,10 @@ public class UserRepositoryTest {
 
     @Test
     void updateUserTest() throws LoginInUseException, ItemNotFound {
-        UserEnt userEnt = new UserEnt(UUID.randomUUID(), "LOGINTEST", true);
+        UserEnt userEnt = new UserEnt(UUID.randomUUID(), "LOGINTEST");
         userRepository.create(userEnt);
         String login = "LOGINUPDATED";
-        userRepository.update(new UserEnt(userEnt.getUuid(), login, true));
+        userRepository.update(new UserEnt(userEnt.getUuid(), login));
         UserEnt result = userRepository.readById(userEnt.getUuid());
         assertEquals(result.getUuid(), userEnt.getUuid());
         assertEquals(result.getLogin(), login);
@@ -63,24 +63,9 @@ public class UserRepositoryTest {
     @Test
     void readManyUsersByLoginTest() throws LoginInUseException {
         int size = userRepository.readManyByLogin("1LOGIN").size();
-        userRepository.create(new UserEnt(UUID.randomUUID(), "1LOGINTEST", true));
-        userRepository.create(new UserEnt(UUID.randomUUID(), "1LOGIN", true));
+        userRepository.create(new UserEnt(UUID.randomUUID(), "1LOGINTEST"));
+        userRepository.create(new UserEnt(UUID.randomUUID(), "1LOGIN"));
         assertEquals(userRepository.readManyByLogin("1LOGIN").size(), size + 2);
     }
 
-    @Test
-    void activateTest() throws LoginInUseException, ItemNotFound {
-        UUID uuid = UUID.randomUUID();
-        userRepository.create(new UserEnt(uuid, "LOGINTEST", false));
-        userRepository.activate(uuid);
-        assertEquals(userRepository.readById(uuid).getActive(), true);
-    }
-
-    @Test
-    void deactiveTest() throws LoginInUseException, ItemNotFound {
-        UUID uuid = UUID.randomUUID();
-        userRepository.create(new UserEnt(uuid, "LOGINTEST", true));
-        userRepository.deactivate(uuid);
-        assertEquals(userRepository.readById(uuid).getActive(), false);
-    }
 }

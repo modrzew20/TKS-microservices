@@ -5,7 +5,6 @@ import applicationcontroller.converters.UserViewConverter;
 import applicationcontroller.modelRest.modelView.UserView;
 import exceptions.ItemNotFound;
 import exceptions.LoginInUseException;
-import model.AccessLevel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import service.UserService;
@@ -26,13 +25,13 @@ public class UserServiceAdapters implements UserServicePort<UserView> {
     }
 
     @Override
-    public UserView addUser(AccessLevel accessLevel, String login, String password) throws LoginInUseException {
-        return UserViewConverter.convertFromUser(userService.addUser(accessLevel, login, password));
+    public UserView addUser(String login) throws LoginInUseException {
+        return UserViewConverter.convertFromUser(userService.addUser(login));
     }
 
     @Override
-    public UserView updateUser(UUID uuid, String login, String password) throws LoginInUseException, ItemNotFound {
-        return UserViewConverter.convertFromUser(userService.updateUser(uuid, login, password));
+    public UserView updateUser(UUID uuid, String login) throws LoginInUseException, ItemNotFound {
+        return UserViewConverter.convertFromUser(userService.updateUser(uuid, login));
     }
 
     @Override
@@ -43,15 +42,5 @@ public class UserServiceAdapters implements UserServicePort<UserView> {
     @Override
     public List<UserView> readManyUser(String login) {
         return userService.readManyUser(login).stream().map(UserViewConverter::convertFromUser).toList();
-    }
-
-    @Override
-    public UserView deactivateUser(UUID uuid) throws ItemNotFound {
-        return UserViewConverter.convertFromUser(userService.deactivateUser(uuid));
-    }
-
-    @Override
-    public UserView activateUser(UUID uuid) throws ItemNotFound {
-        return UserViewConverter.convertFromUser(userService.activateUser(uuid));
     }
 }

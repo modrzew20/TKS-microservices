@@ -1,60 +1,43 @@
 package model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
+@AllArgsConstructor
 public class Reservation {
 
+    @Getter
+    @Setter
     private UUID uuid;
+    @Getter
+    @Setter
     private Lane lane;
+    @Getter
+    @Setter
     private User user;
+    @Getter
+    @Setter
     private LocalDateTime startReservation, endReservation;
 
-    public Reservation(UUID uuid, Lane lane, User client, LocalDateTime startReservation, LocalDateTime endReservation) {
-        this.uuid = uuid;
-        this.lane = lane;
-        this.user = client;
-        this.startReservation = startReservation;
-        this.endReservation = endReservation;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Reservation)) return false;
+        Reservation that = (Reservation) o;
+        return Objects.equals(getUuid(), that.getUuid()) &&
+                Objects.equals(getLane(), that.getLane()) &&
+                Objects.equals(getUser(), that.getUser()) &&
+                Objects.equals(getStartReservation(), that.getStartReservation()) &&
+                Objects.equals(getEndReservation(), that.getEndReservation());
     }
 
-    public Lane getLane() {
-        return lane;
-    }
-
-    public void setLane(Lane lane) {
-        this.lane = lane;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public LocalDateTime getStartReservation() {
-        return startReservation;
-    }
-
-    public void setStartReservation(LocalDateTime startReservation) {
-        this.startReservation = startReservation;
-    }
-
-    public LocalDateTime getEndReservation() {
-        return endReservation;
-    }
-
-    public void setEndReservation(LocalDateTime endReservation) {
-        this.endReservation = endReservation;
-    }
-
-    public UUID getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
+    @Override
+    public int hashCode() {
+        return Objects.hash(getUuid(), getLane(), getUser(), getStartReservation(), getEndReservation());
     }
 }

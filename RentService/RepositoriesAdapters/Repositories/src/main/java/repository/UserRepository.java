@@ -17,9 +17,9 @@ public class UserRepository implements RepositoryInterface<UserEnt> {
 
     public UserRepository() throws LoginInUseException {
         this.userList = new ArrayList<>();
-        this.create(new UserEnt(UUID.fromString("484e945c-9174-417a-b4e4-7736254ade4f"), "miciukaciu", true));
-        this.create(new UserEnt(UUID.fromString("b2998c63-4621-443e-bf59-1e39e1f80170"), "pypensz", true));
-        this.create(new UserEnt(UUID.fromString("6286cfa3-2993-44d3-aff4-a26ca9b2b75b"), "fici", true));
+        this.create(new UserEnt(UUID.fromString("484e945c-9174-417a-b4e4-7736254ade4f"), "miciukaciu"));
+        this.create(new UserEnt(UUID.fromString("b2998c63-4621-443e-bf59-1e39e1f80170"), "pypensz"));
+        this.create(new UserEnt(UUID.fromString("6286cfa3-2993-44d3-aff4-a26ca9b2b75b"), "fici"));
     }
 
     private boolean loginExists(String login) {
@@ -86,16 +86,6 @@ public class UserRepository implements RepositoryInterface<UserEnt> {
 
     }
 
-    public UserEnt activate(UUID uuid) throws ItemNotFound {
-        UserEnt user = this.readById(uuid);
-        if (user != null) user.setActive(true);
-        return user;
-    }
 
-    public UserEnt deactivate(UUID uuid) throws ItemNotFound {
-        UserEnt user = this.readById(uuid);
-        if (user != null) user.setActive(false);
-        return user;
-    }
 
 }

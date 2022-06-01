@@ -4,7 +4,6 @@ import applicationcontroller.adapters.UserServiceAdapters;
 import applicationcontroller.modelRest.modelView.UserView;
 import exceptions.ItemNotFound;
 import exceptions.LoginInUseException;
-import model.AccessLevel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -44,11 +43,9 @@ public class UserController {
     }
 
     @PostMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE)
-    public UserView addUser(@RequestParam("accessLevel") @NotBlank @Pattern(regexp = "Administrator|Client|ResourceAdministrator", message = "Field accessLevel must be Administrator|Client|ResourceAdministrator.") String accessLevel,
-                            @RequestParam("login") @NotBlank String login,
-                            @RequestParam("password") @NotBlank String password) {
+    public UserView addUser(@RequestParam("login") @NotBlank String login) {
         try {
-            return userServiceAdapters.addUser(AccessLevel.valueOf(accessLevel), login, password);
+            return userServiceAdapters.addUser(login);
         } catch (LoginInUseException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
@@ -57,11 +54,10 @@ public class UserController {
     @PostMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE)
     public UserView updateUser(@RequestParam("id") @NotBlank @Pattern(regexp =
             "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid,
-                               @RequestParam("login") String login,
-                               @RequestParam("password") String password) {
+                               @RequestParam("login") String login) {
 
         try {
-            return userServiceAdapters.updateUser(UUID.fromString(uuid), login, password);
+            return userServiceAdapters.updateUser(UUID.fromString(uuid), login);
         } catch (LoginInUseException | ItemNotFound e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
@@ -71,25 +67,4 @@ public class UserController {
     public List<UserView> readManyUsers(@PathVariable("login") @NotBlank String login) {
         return userServiceAdapters.readManyUser(login);
     }
-
-    @PostMapping(value = "/deactivate/{uuid}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public UserView deactivateUser(@PathVariable @NotBlank @Pattern(regexp =
-            "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid) {
-        try {
-            return userServiceAdapters.deactivateUser(UUID.fromString(uuid));
-        } catch (ItemNotFound e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-        }
-    }
-
-    @PostMapping(value = "/activate/{uuid}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public UserView activateUser(@PathVariable @NotBlank @Pattern(regexp =
-            "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}") String uuid) {
-        try {
-            return userServiceAdapters.activateUser(UUID.fromString(uuid));
-        } catch (ItemNotFound e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-        }
-    }
-
 }

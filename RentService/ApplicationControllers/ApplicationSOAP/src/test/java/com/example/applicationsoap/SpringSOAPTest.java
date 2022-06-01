@@ -4,8 +4,7 @@ import org.junit.jupiter.api.Disabled;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = ApplicationSoapApplication.class)
-@Disabled("Disabled until UserService is fixed")
-//TODO Remove after userService is updated
+
 public interface SpringSOAPTest {
     String readAllLanesRequest = """
             <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
@@ -84,9 +83,7 @@ public interface SpringSOAPTest {
                 <soapenv:Header/>
                 <soapenv:Body>
                     <gs:CreateUserRequest>
-                        <gs:accesslevel>%s</gs:accesslevel>
-                        <gs:login>%s</gs:login>
-                        <gs:password>%s</gs:password>
+                       <gs:login>%s</gs:login>
                     </gs:CreateUserRequest>
                 </soapenv:Body>
             </soapenv:Envelope>
@@ -100,32 +97,7 @@ public interface SpringSOAPTest {
                     <gs:UpdateUserRequest>
                         <gs:uuid>%s</gs:uuid>
                         <gs:login>%s</gs:login>
-                        <gs:password>%s</gs:password>
                     </gs:UpdateUserRequest>
-                </soapenv:Body>
-            </soapenv:Envelope>
-            """;
-
-    String DeactivateUserRequest = """
-            <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
-                    xmlns:gs="http://example.com/applicationsoap/soapmodel/usermodel">
-                <soapenv:Header/>
-                <soapenv:Body>
-                    <gs:deactivateUserRequest>
-                        <gs:uuid>%s</gs:uuid>
-                    </gs:deactivateUserRequest>
-                </soapenv:Body>
-            </soapenv:Envelope>
-            """;
-
-    String ActivateUserRequest = """
-            <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
-                    xmlns:gs="http://example.com/applicationsoap/soapmodel/usermodel">
-                <soapenv:Header/>
-                <soapenv:Body>
-                    <gs:activateUserRequest>
-                        <gs:uuid>%s</gs:uuid>
-                    </gs:activateUserRequest>
                 </soapenv:Body>
             </soapenv:Envelope>
             """;

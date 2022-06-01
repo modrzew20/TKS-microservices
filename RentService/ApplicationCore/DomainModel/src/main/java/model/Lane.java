@@ -1,41 +1,22 @@
 package model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import java.util.Objects;
 import java.util.UUID;
 
+@AllArgsConstructor
+@ToString
 public class Lane {
 
+    @Getter
+    @Setter
     private UUID uuid;
+    @Getter @Setter
     private LANE_TYPE type;
-
-    public Lane(UUID uuid, LANE_TYPE type) {
-        this.uuid = uuid;
-        this.type = type;
-    }
-
-    public UUID getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
-    }
-
-    public LANE_TYPE getType() {
-        return type;
-    }
-
-    public void setType(LANE_TYPE type) {
-        this.type = type;
-    }
-
-    @Override
-    public String toString() {
-        return "Lane{" +
-                "uuid=" + uuid +
-                ", type=" + type +
-                '}';
-    }
 
     @Override
     public boolean equals(Object o) {

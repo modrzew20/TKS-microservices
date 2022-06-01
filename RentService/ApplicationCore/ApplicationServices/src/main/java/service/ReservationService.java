@@ -54,7 +54,7 @@ public class ReservationService {
 
         Lane lane = readLanePort.readById(laneUUID);
         User client = readUserPort.readById(clientsUUID);
-        if (!readUserPort.readById(clientsUUID).getActive() || createReservationPort.reservedLine(laneUUID, start, end))
+        if (createReservationPort.reservedLine(laneUUID, start, end))
             throw new CannotCreateItem("Cannot create reservation");
         synchronized (lock) {
             Reservation reservation = new Reservation(UUID.randomUUID(), lane, client, start, end);
