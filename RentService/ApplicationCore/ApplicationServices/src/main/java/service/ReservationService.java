@@ -5,11 +5,13 @@ import Port.In.CreateReservationPort;
 import Port.In.DeleteReservationPort;
 import Port.In.UpdateReservationPort;
 import Port.Out.*;
+import exceptions.ApplicationException;
 import exceptions.CannotCreateItem;
 import exceptions.CannotDeleteItem;
 import exceptions.ItemNotFound;
 import model.Lane;
 import model.Reservation;
+import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,7 @@ public class ReservationService {
     private final Object lock = new Object();
     private final ReadReservationPort readReservationPort;
     private final ReadLanePort readLanePort;
+    private final ReadUserPort readUserPort;
     private final CreateReservationPort createReservationPort;
     private final UpdateReservationPort updateReservationPort;
     private final DeleteReservationPort deleteReservationPort;
@@ -30,9 +33,10 @@ public class ReservationService {
     private final LanesReservationPort lanesReservationPort;
 
     @Autowired
-    public ReservationService(ReadReservationPort readReservationPort, ReadLanePort readLanePort, CreateReservationPort createReservationPort, UpdateReservationPort updateReservationPort, DeleteReservationPort deleteReservationPort, ClientsReservationPort clientsReservationPort, LanesReservationPort lanesReservationPort) {
+    public ReservationService(ReadReservationPort readReservationPort, ReadLanePort readLanePort, ReadUserPort readUserPort, CreateReservationPort createReservationPort, UpdateReservationPort updateReservationPort, DeleteReservationPort deleteReservationPort, ClientsReservationPort clientsReservationPort, LanesReservationPort lanesReservationPort) {
         this.readReservationPort = readReservationPort;
         this.readLanePort = readLanePort;
+        this.readUserPort = readUserPort;
         this.createReservationPort = createReservationPort;
         this.updateReservationPort = updateReservationPort;
         this.deleteReservationPort = deleteReservationPort;
@@ -49,8 +53,11 @@ public class ReservationService {
     public Reservation addReservation(UUID clientsUUID, UUID laneUUID, LocalDateTime start, LocalDateTime end) throws ItemNotFound, CannotCreateItem {
 
         Lane lane = readLanePort.readById(laneUUID);
+        User client = readUserPort.readById(clientsUUID);
+        if (createReservationPort.reservedLine(laneUUID, start, end))
+            throw new CannotCreateItem("Cannot create reservation");
         synchronized (lock) {
-            Reservation reservation = new Reservation(UUID.randomUUID(), lane, clientsUUID, start, end);
+            Reservation reservation = new Reservation(UUID.randomUUID(), lane, client, start, end);
             reservation = createReservationPort.create(reservation);
             return reservation;
         }

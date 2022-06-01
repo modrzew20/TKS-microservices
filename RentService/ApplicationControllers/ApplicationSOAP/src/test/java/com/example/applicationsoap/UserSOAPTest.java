@@ -23,11 +23,11 @@ public class UserSOAPTest implements SpringSOAPTest {
         URL = "http://localhost:" + port + "/ws";
     }
 
-    private String createUserRequest(String accessLevel, String login, String password) {
+    private String createUserRequest(String login) {
         return RestAssured.given()
                 .header("Content-Type", "text/xml")
                 .header("SOAPAction", "http://example.com/applicationsoap/soapmodel/usermodel")
-                .body(String.format(CreateUserRequest, accessLevel, login, password))
+                .body(String.format(CreateUserRequest, login))
                 .post(URL)
                 .then()
                 .assertThat()
@@ -62,7 +62,7 @@ public class UserSOAPTest implements SpringSOAPTest {
     @Test
     public void createUser() {
         // create user
-        String uuid = createUserRequest(accessLevel, login + "a", password);
+        String uuid = createUserRequest(login + "a");
         readUserRequest(uuid);
     }
 
@@ -71,12 +71,11 @@ public class UserSOAPTest implements SpringSOAPTest {
         String updatedLogin = "updatedUser3";
         String updatedPassword = "password7";
         // create user
-        String uuid = createUserRequest(accessLevel, login + "b", password);
+        String uuid = createUserRequest(login + "b");
         updateUserRequest(uuid, updatedLogin, updatedPassword, 200);
         Response response = readUserRequest(uuid);
         assertEquals(uuid, response.getBody().xmlPath().getString("Envelope.Body.ReadOneUserResponse.UserSoap.uuid"));
         assertEquals(updatedLogin, response.getBody().xmlPath().getString("Envelope.Body.ReadOneUserResponse.UserSoap.login"));
-        assertEquals(updatedPassword, response.getBody().xmlPath().getString("Envelope.Body.ReadOneUserResponse.UserSoap.password"));
     }
 
     @Test
@@ -84,19 +83,19 @@ public class UserSOAPTest implements SpringSOAPTest {
         String updatedLogin = "";
         String updatedPassword = "password8";
         // create user
-        String uuid = createUserRequest(accessLevel, login + "c", password);
+        String uuid = createUserRequest(login + "c");
         updateUserRequest(uuid, updatedLogin, updatedPassword, 500);
     }
 
     @Test
     public void uniqueLogin() {
         // create user
-        String uuid = createUserRequest(accessLevel, login + "d", password);
+        String uuid = createUserRequest(login + "d");
 
         RestAssured.given()
                 .header("Content-Type", "text/xml")
                 .header("SOAPAction", "http://example.com/applicationsoap/soapmodel/usermodel")
-                .body(String.format(CreateUserRequest, accessLevel, login + "d", password))
+                .body(String.format(CreateUserRequest, login + "d"))
                 .post(URL)
                 .then()
                 .assertThat()
@@ -108,41 +107,11 @@ public class UserSOAPTest implements SpringSOAPTest {
         RestAssured.given()
                 .header("Content-Type", "text/xml")
                 .header("SOAPAction", "http://example.com/applicationsoap/soapmodel/usermodel")
-                .body(String.format(CreateUserRequest, accessLevel, "", password))
+                .body(String.format(CreateUserRequest, ""))
                 .post(URL)
                 .then()
                 .assertThat()
                 .statusCode(500);
     }
 
-    @Test
-    @Disabled
-    public void activate() {
-        String uuid = createUserRequest(accessLevel, login + "e", password);
-
-        // deactivate
-        RestAssured.given()
-                .header("Content-Type", "text/xml")
-                .header("SOAPAction", "http://example.com/applicationsoap/soapmodel/usermodel")
-                .body(String.format(DeactivateUserRequest, uuid))
-                .post(URL)
-                .then()
-                .assertThat()
-                .statusCode(200);
-        Response response = readUserRequest(uuid);
-        assertEquals("false", response.getBody().xmlPath().getString("Envelope.Body.ReadOneUserResponse.UserSoap.isActive"));
-
-        //activate
-        RestAssured.given()
-                .header("Content-Type", "text/xml")
-                .header("SOAPAction", "http://example.com/applicationsoap/soapmodel/usermodel")
-                .body(String.format(ActivateUserRequest, uuid))
-                .post(URL)
-                .then()
-                .assertThat()
-                .statusCode(200);
-        response = readUserRequest(uuid);
-        assertEquals("true", response.getBody().xmlPath().getString("Envelope.Body.ReadOneUserResponse.UserSoap.isActive"));
-
-    }
 }

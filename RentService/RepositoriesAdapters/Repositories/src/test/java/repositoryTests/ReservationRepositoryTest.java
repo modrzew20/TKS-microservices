@@ -2,28 +2,31 @@ package repositoryTests;
 
 import exceptions.CannotDeleteItem;
 import exceptions.ItemNotFound;
+import exceptions.LoginInUseException;
 import modelEnt.LANE_TYPE_Ent;
 import modelEnt.LaneEnt;
 import modelEnt.ReservationEnt;
+import modelEnt.UserEnt;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import repository.LaneRepository;
 import repository.ReservationRepository;
+import repository.UserRepository;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
 class ReservationRepositoryTest {
 
     static ReservationRepository reservationRepository;
-
+    static UserRepository userRepository;
     static LaneRepository laneRepository;
 
-    static UUID user1;
-    static UUID user2;
+    static UserEnt user1;
+    static UserEnt user2;
     static LaneEnt lane1;
     static LaneEnt lane2;
     static ReservationEnt reservation1;
@@ -40,6 +43,11 @@ class ReservationRepositoryTest {
     @BeforeEach
     private void setup() {
         reservationRepository = new ReservationRepository();
+        try {
+            userRepository = new UserRepository();
+        } catch (LoginInUseException e) {
+            e.printStackTrace();
+        }
         laneRepository = new LaneRepository();
 
         start1 = LocalDateTime.now().minusDays(3);
@@ -51,8 +59,16 @@ class ReservationRepositoryTest {
         start3 = LocalDateTime.now();
         end3 = LocalDateTime.now().plusDays(1);
 
-        user1 = UUID.randomUUID();
-        user2 = UUID.randomUUID();
+
+        try {
+            user1 = new UserEnt(UUID.randomUUID(), "userA");
+            userRepository.create(user1);
+
+            user2 = new UserEnt(UUID.randomUUID(), "userB");
+            userRepository.create(user2);
+        } catch (LoginInUseException e) {
+            e.printStackTrace();
+        }
 
         lane1 = new LaneEnt(UUID.randomUUID(), LANE_TYPE_Ent.premium);
         laneRepository.create(lane1);
@@ -106,7 +122,7 @@ class ReservationRepositoryTest {
 
     @Test
     void pastClientReservations() {
-        List<ReservationEnt> list = reservationRepository.pastClientReservations(user1);
+        List<ReservationEnt> list = reservationRepository.pastClientReservations(user1.getUuid());
         assertTrue(list.contains(reservation1));
         assertFalse(list.contains(reservation2));
         assertFalse(list.contains(reservation3));
@@ -114,7 +130,7 @@ class ReservationRepositoryTest {
 
     @Test
     void presentClientReservations() {
-        List<ReservationEnt> list = reservationRepository.presentClientReservations(user1);
+        List<ReservationEnt> list = reservationRepository.presentClientReservations(user1.getUuid());
         assertFalse(list.contains(reservation1));
         assertTrue(list.contains(reservation2));
         assertTrue(list.contains(reservation3));

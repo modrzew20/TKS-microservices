@@ -44,7 +44,7 @@ public class LaneServiceSoapAdapter implements LaneServicePort<LaneSoap> {
     }
 
     @Override
-    public LaneSoap deleteLine(UUID uuid) throws ItemNotFound {
+    public LaneSoap deleteLane(UUID uuid) throws ItemNotFound {
         return convertFromLane(laneService.deleteLine(uuid));
     }
 }

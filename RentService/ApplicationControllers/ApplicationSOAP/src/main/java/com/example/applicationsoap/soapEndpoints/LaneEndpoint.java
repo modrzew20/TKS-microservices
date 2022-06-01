@@ -55,7 +55,7 @@ public class LaneEndpoint {
     @ResponsePayload
     public DeleteLaneResponse deleteLaneResponse(@RequestPayload DeleteLaneRequest request) throws ItemNotFound {
         DeleteLaneResponse response = new DeleteLaneResponse();
-        response.setLaneSoap(laneServiceSoapAdapter.deleteLine(UUID.fromString(request.getUuid())));
+        response.setLaneSoap(laneServiceSoapAdapter.deleteLane(UUID.fromString(request.getUuid())));
         return response;
     }
 

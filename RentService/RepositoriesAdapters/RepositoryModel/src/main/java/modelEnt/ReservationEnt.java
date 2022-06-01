@@ -1,60 +1,22 @@
 package modelEnt;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@AllArgsConstructor
 public class ReservationEnt {
 
+    @Getter @Setter
     private UUID uuid;
+    @Getter @Setter
     private LaneEnt lane;
-    private UUID client;
+    @Getter @Setter
+    private UserEnt user;
+    @Getter @Setter
     private LocalDateTime startReservation, endReservation;
 
-    public ReservationEnt(UUID uuid, LaneEnt lane, UUID client, LocalDateTime startReservation, LocalDateTime endReservation) {
-        this.uuid = uuid;
-        this.lane = lane;
-        this.client = client;
-        this.startReservation = startReservation;
-        this.endReservation = endReservation;
-    }
-
-    public LaneEnt getLane() {
-        return lane;
-    }
-
-    public void setLane(LaneEnt lane) {
-        this.lane = lane;
-    }
-
-    public UUID getClient() {
-        return client;
-    }
-
-    public void setClient(UUID client) {
-        this.client = client;
-    }
-
-    public LocalDateTime getStartReservation() {
-        return startReservation;
-    }
-
-    public void setStartReservation(LocalDateTime startReservation) {
-        this.startReservation = startReservation;
-    }
-
-    public LocalDateTime getEndReservation() {
-        return endReservation;
-    }
-
-    public void setEndReservation(LocalDateTime endReservation) {
-        this.endReservation = endReservation;
-    }
-
-    public UUID getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
-    }
 }

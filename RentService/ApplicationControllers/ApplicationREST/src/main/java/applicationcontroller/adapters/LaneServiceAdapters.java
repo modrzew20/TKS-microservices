@@ -39,7 +39,7 @@ public class LaneServiceAdapters implements LaneServicePort<LaneView> {
     }
 
     @Override
-    public LaneView deleteLine(UUID uuid) throws ItemNotFound {
+    public LaneView deleteLane(UUID uuid) throws ItemNotFound {
         return LaneViewConverter.convertFromLane(laneService.deleteLine(uuid));
     }
 }

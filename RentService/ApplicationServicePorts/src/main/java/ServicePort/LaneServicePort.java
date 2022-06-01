@@ -15,5 +15,5 @@ public interface LaneServicePort<T> {
 
     T readOneLane(UUID uuid) throws ItemNotFound;
 
-    T deleteLine(UUID uuid) throws ItemNotFound;
+    T deleteLane(UUID uuid) throws ItemNotFound;
 }
