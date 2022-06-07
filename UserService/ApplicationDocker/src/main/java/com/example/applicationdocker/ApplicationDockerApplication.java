@@ -2,6 +2,7 @@ package com.example.applicationdocker;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @SpringBootApplication(
         scanBasePackages = {
@@ -23,6 +24,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
                 "converters",
         }
 )
+@EnableDiscoveryClient
 public class ApplicationDockerApplication {
 
     public static void main(String[] args) {

@@ -31,3 +31,7 @@ RentService/.idea/jarRepositories.xml
 RentService/.idea/encodings.xml
 RentService/.idea/compiler.xml
 /RentService/ApplicationControllers/ApplicationREST/.idea/
+
+.mvn
+mvnw
+mvnw.cmd
