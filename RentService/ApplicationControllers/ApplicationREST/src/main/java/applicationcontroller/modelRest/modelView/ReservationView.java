@@ -1,60 +1,18 @@
 package applicationcontroller.modelRest.modelView;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@Data
+@AllArgsConstructor
 public class ReservationView {
 
     private UUID uuid;
     private LaneView lane;
-    private UUID user;
+    private UserView user;
     private LocalDateTime startReservation, endReservation;
 
-    public ReservationView(UUID uuid, LaneView lane, UUID client, LocalDateTime startReservation, LocalDateTime endReservation) {
-        this.uuid = uuid;
-        this.lane = lane;
-        this.user = client;
-        this.startReservation = startReservation;
-        this.endReservation = endReservation;
-    }
-
-    public LaneView getLane() {
-        return lane;
-    }
-
-    public void setLane(LaneView lane) {
-        this.lane = lane;
-    }
-
-    public UUID getUser() {
-        return user;
-    }
-
-    public void setUser(UUID user) {
-        this.user = user;
-    }
-
-    public LocalDateTime getStartReservation() {
-        return startReservation;
-    }
-
-    public void setStartReservation(LocalDateTime startReservation) {
-        this.startReservation = startReservation;
-    }
-
-    public LocalDateTime getEndReservation() {
-        return endReservation;
-    }
-
-    public void setEndReservation(LocalDateTime endReservation) {
-        this.endReservation = endReservation;
-    }
-
-    public UUID getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
-    }
 }

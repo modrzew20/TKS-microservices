@@ -1,18 +1,14 @@
 package applicationcontroller.modelRest.modelView;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.util.UUID;
 
+@Data
 @AllArgsConstructor
 public class UserView {
 
-    @Getter @Setter
     private UUID uuid;
-    @Getter @Setter
     private String login;
-
-
 }

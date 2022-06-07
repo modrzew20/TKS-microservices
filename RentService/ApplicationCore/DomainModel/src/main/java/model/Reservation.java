@@ -9,19 +9,13 @@ import java.util.Objects;
 import java.util.UUID;
 
 @AllArgsConstructor
+@Getter
+@Setter
 public class Reservation {
 
-    @Getter
-    @Setter
     private UUID uuid;
-    @Getter
-    @Setter
     private Lane lane;
-    @Getter
-    @Setter
     private User user;
-    @Getter
-    @Setter
     private LocalDateTime startReservation, endReservation;
 
     @Override
