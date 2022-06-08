@@ -16,6 +16,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
         "Port.In",
         "Port.Out",
         "converters",
+        "kafka.producer",
 })
 public class ApplicationControllerApplication {
     public static void main(String[] args) {
