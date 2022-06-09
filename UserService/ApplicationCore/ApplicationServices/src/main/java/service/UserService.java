@@ -19,8 +19,11 @@ import java.util.UUID;
 @Service
 public class UserService {
 
-    @Value("${spring.kafka.topic.user}")
+    @Value("${spring.kafka.topic.userTopic}")
     private String USER_TOPIC;
+
+    @Value("${spring.kafka.topic.userResponseQueue}")
+    private String USER_RESPONSE_QUEUE;
 
     private Sender sender;
 
