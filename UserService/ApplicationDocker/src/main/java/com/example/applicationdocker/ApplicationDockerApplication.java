@@ -22,6 +22,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
                 "Port.In",
                 "Port.Out",
                 "converters",
+                "kafka.receiver",
                 "kafka.producer",
         }
 )

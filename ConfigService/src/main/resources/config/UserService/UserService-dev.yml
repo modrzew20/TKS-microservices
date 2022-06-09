@@ -1,6 +1,6 @@
 spring:
   kafka:
-    bootstrap-servers: ${bootstrap_server:127.0.0.1:9092}
+    bootstrap-servers: localhost:9093
     topic:
       userTopic: USER_TOPIC
       userResponseQueue: USER_RESPONSE_QUEUE

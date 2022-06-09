@@ -70,4 +70,9 @@ public class LaneRepository implements RepositoryInterface<LaneEnt> {
         return lane;
     }
 
+    @Override
+    public LaneEnt deleteLocalObject(String login) {
+        throw new UnsupportedOperationException();
+    }
+
 }

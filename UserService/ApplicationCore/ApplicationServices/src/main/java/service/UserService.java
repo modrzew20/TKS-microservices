@@ -5,8 +5,12 @@ import Port.In.CreateUserPort;
 import Port.In.DeleteUserPort;
 import Port.In.UpdateUserPort;
 import Port.Out.ReadUserPort;
+import exceptions.CannotDeleteItem;
 import exceptions.ItemNotFound;
 import exceptions.LoginInUseException;
+import kafka.dto.UserDto;
+import kafka.message.Action;
+import kafka.message.Message;
 import kafka.producer.Sender;
 import model.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +23,10 @@ import java.util.UUID;
 @Service
 public class UserService {
 
-    @Value("${spring.kafka.topic.userTopic}")
+    @Value("${spring.kafka.topic.userTopic:USER_TOPIC}")
     private String USER_TOPIC;
 
-    @Value("${spring.kafka.topic.userResponseQueue}")
+    @Value("${spring.kafka.topic.userResponseQueue:USER_RESPONSE_QUEUE}")
     private String USER_RESPONSE_QUEUE;
 
     private Sender sender;
@@ -70,7 +74,8 @@ public class UserService {
             return createdUser;
         } finally {
             if (createdUser != null) {
-                sender.send(USER_TOPIC, createdUser);
+                Message message = new Message(Action.CREATE, new UserDto(createdUser));
+                sender.send(USER_TOPIC, message);
             }
         }
     }
@@ -99,7 +104,8 @@ public class UserService {
             return updatedUser;
         } finally {
             if (updatedUser != null) {
-                sender.send(USER_TOPIC, updatedUser);
+                Message message = new Message(Action.UPDATE, new UserDto(updatedUser));
+                sender.send(USER_TOPIC, message);
             }
         }
     }
@@ -127,7 +133,8 @@ public class UserService {
             return editedUser;
         } finally {
             if (editedUser != null) {
-                sender.send(USER_TOPIC, editedUser);
+                Message message = new Message(Action.UPDATE, new UserDto(editedUser));
+                sender.send(USER_TOPIC, message);
             }
         }
     }
@@ -141,10 +148,16 @@ public class UserService {
             return editedUser;
         } finally {
             if (editedUser != null) {
-                sender.send(USER_TOPIC, editedUser);
+                Message message = new Message(Action.UPDATE, new UserDto(editedUser));
+                sender.send(USER_TOPIC, message);
             }
         }
     }
 
 
+    public User deleteUser(UUID uuid) throws ItemNotFound {
+        synchronized (lock) {
+            return deleteUserPort.delete(uuid);
+        }
+    }
 }

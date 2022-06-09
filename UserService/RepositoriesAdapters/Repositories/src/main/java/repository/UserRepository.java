@@ -3,6 +3,7 @@ package repository;
 import exceptions.CannotDeleteItem;
 import exceptions.ItemNotFound;
 import exceptions.LoginInUseException;
+import model.User;
 import modelEnt.AdministratorEnt;
 import modelEnt.ClientEnt;
 import modelEnt.ResourceAdministratorEnt;
@@ -64,8 +65,10 @@ public class UserRepository implements RepositoryInterface<UserEnt> {
     }
 
     @Override
-    public UserEnt delete(UUID uuid) throws CannotDeleteItem {
-        throw new CannotDeleteItem();
+    public UserEnt delete(UUID uuid) throws ItemNotFound {
+        UserEnt user = readById(uuid);
+        userList.remove(user);
+        return user;
     }
 
     @Override

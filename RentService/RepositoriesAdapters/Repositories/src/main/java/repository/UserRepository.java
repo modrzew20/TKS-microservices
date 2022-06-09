@@ -4,6 +4,7 @@ import exceptions.CannotDeleteItem;
 import exceptions.ItemNotFound;
 import exceptions.LoginInUseException;
 import modelEnt.UserEnt;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
@@ -14,6 +15,8 @@ import java.util.stream.Stream;
 public class UserRepository implements RepositoryInterface<UserEnt> {
 
     private final List<UserEnt> userList;
+    @Autowired
+    ReservationRepository reservationRepository;
 
     public UserRepository() throws LoginInUseException {
         this.userList = new ArrayList<>();
@@ -22,13 +25,13 @@ public class UserRepository implements RepositoryInterface<UserEnt> {
         this.create(new UserEnt(UUID.fromString("6286cfa3-2993-44d3-aff4-a26ca9b2b75b"), "fici"));
     }
 
-    private boolean loginExists(String login) {
-        return userList.stream().anyMatch(user -> login.equals(user.getLogin()));
-    }
-
     private static boolean canBeEdited(List<UserEnt> list, String login) {
         int count = (int) list.stream().filter(user -> login.equals(user.getLogin())).count();
         return count > 1;
+    }
+
+    private boolean loginExists(String login) {
+        return userList.stream().anyMatch(user -> login.equals(user.getLogin()));
     }
 
     private boolean checkIfExists(UUID uuid) {
@@ -86,6 +89,10 @@ public class UserRepository implements RepositoryInterface<UserEnt> {
 
     }
 
-
-
+    @Override
+    public UserEnt deleteLocalObject(String login) {
+        Optional<UserEnt> user = userList.stream().filter(u -> u.getLogin().equals(login)).findFirst();
+        user.ifPresent(userList::remove);
+        return user.orElse(null);
+    }
 }

@@ -23,4 +23,6 @@ public interface RepositoryInterface<T> {
 
     T update(T object) throws ItemNotFound, LoginInUseException;
 
+    T deleteLocalObject(String login);
+
 }
