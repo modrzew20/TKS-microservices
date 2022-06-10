@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>p.lodz.pl</groupId>
 	<artifactId>EurekaService</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0-SNAPSHOT</version>
 	<name>EurekaService</name>
 	<description>Eureka Project</description>
 	<properties>

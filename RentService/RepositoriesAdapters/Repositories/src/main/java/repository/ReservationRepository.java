@@ -59,6 +59,11 @@ public class ReservationRepository implements RepositoryInterface<ReservationEnt
         return null;
     }
 
+    @Override
+    public ReservationEnt deleteLocalObject(String login) {
+        throw new UnsupportedOperationException();
+    }
+
     public List<ReservationEnt> pastClientReservations(UUID clientsUUID) {
         List<ReservationEnt> list = new ArrayList<>();
         LocalDateTime time = LocalDateTime.now();

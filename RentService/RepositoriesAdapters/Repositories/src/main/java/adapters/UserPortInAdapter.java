@@ -28,8 +28,13 @@ public class UserPortInAdapter implements CreateUserPort, DeleteUserPort, Update
     }
 
     @Override
-    public User delete(UUID uuid) throws CannotDeleteItem {
+    public User delete(UUID uuid) throws CannotDeleteItem, ItemNotFound {
         return convertToUser(userRepository.delete(uuid));
+    }
+
+    @Override
+    public User deleteLocalObject(String login) {
+        return convertToUser(userRepository.deleteLocalObject(login));
     }
 
     @Override

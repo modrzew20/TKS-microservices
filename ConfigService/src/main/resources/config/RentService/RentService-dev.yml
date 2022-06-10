@@ -1,0 +1,6 @@
+spring:
+  kafka:
+    bootstrap-servers: localhost:9093
+    topic:
+      userTopic: USER_TOPIC
+      userResponseQueue: USER_RESPONSE_QUEUE

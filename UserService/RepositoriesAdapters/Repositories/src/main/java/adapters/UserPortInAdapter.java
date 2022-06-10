@@ -28,7 +28,7 @@ public class UserPortInAdapter implements CreateUserPort, DeleteUserPort, Update
     }
 
     @Override
-    public User delete(UUID uuid) throws CannotDeleteItem {
+    public User delete(UUID uuid) throws ItemNotFound {
         return convertToUser(userRepository.delete(uuid));
     }
 

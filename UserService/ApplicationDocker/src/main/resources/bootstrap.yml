@@ -1,0 +1,10 @@
+server:
+  port: ${port:8010}
+spring:
+  application:
+    name: UserService
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: ConfigService

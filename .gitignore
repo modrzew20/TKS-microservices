@@ -35,3 +35,6 @@ RentService/.idea/compiler.xml
 .mvn
 mvnw
 mvnw.cmd
+KafkaService/.idea/misc.xml
+KafkaService/.idea/modules.xml
+KafkaService/.idea/vcs.xml

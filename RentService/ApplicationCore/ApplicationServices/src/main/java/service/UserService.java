@@ -5,16 +5,16 @@ import Port.In.CreateUserPort;
 import Port.In.DeleteUserPort;
 import Port.In.UpdateUserPort;
 import Port.Out.ReadUserPort;
+import exceptions.CannotDeleteItem;
 import exceptions.ItemNotFound;
 import exceptions.LoginInUseException;
-import model.*;
+import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 
-// TODO to bedzie wywolywac mikroserwis UserService
 @Service
 public class UserService {
 
@@ -44,6 +44,12 @@ public class UserService {
         }
     }
 
+    public User addUserFromMessage(User user) throws LoginInUseException {
+        synchronized (lock) {
+            return createUserPort.create(user);
+        }
+    }
+
     public User updateUser(UUID uuid, String login) throws
             LoginInUseException, ItemNotFound {
         synchronized (lock) {
@@ -62,6 +68,18 @@ public class UserService {
     public List<User> readManyUser(String login) {
         synchronized (lock) {
             return readUserPort.readManyByLogin(login);
+        }
+    }
+
+    public void deleteUser(UUID uuid) throws ItemNotFound, CannotDeleteItem {
+        synchronized (lock) {
+            deleteUserPort.delete(uuid);
+        }
+    }
+
+    public void deleteLocalUser(String login) {
+        synchronized (lock) {
+            deleteUserPort.deleteLocalObject(login);
         }
     }
 }
